@@ -14,8 +14,7 @@ import java.awt.event.WindowEvent;
  **/
 public class TankFrame extends Frame {
 
-    private final int SPEED = 10;
-    Direction dir = Direction.DOWN;
+    Tank myTank = new Tank(200,200, Direction.DOWN);
 
     public TankFrame(){
         this.setVisible(true);
@@ -23,8 +22,8 @@ public class TankFrame extends Frame {
         this.setTitle("Tank War");
         this.setResizable(false);
 
-        // 窗口监听
-        // WindowAdapter 为 WindowListener的子类
+        /** 窗口监听
+            WindowAdapter 为 WindowListener的子类 **/
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -32,8 +31,8 @@ public class TankFrame extends Frame {
             }
         });
 
-        // 键盘监听
-        // 此处以内部类调用；也可按匿名内部类方式调用
+        /** 键盘监听
+            此处以内部类调用；也可按匿名内部类方式调用 **/
         addKeyListener(new MyKeyListener());
 
     }
@@ -41,26 +40,7 @@ public class TankFrame extends Frame {
     /** 重绘时（frame.repaint()）自动调用 **/
     @Override
     public void paint(Graphics g) {
-        // tank's coordinate of the screen
-        int x = 200,y = 200;
-        // 绘制50*50的正方形
-        g.fillRect(x,y,50,50);
-        switch (dir){
-            case LEFT:
-                x-=SPEED;
-                break;
-            case RIGHT:
-                x+=SPEED;
-                break;
-            case UP:
-                y-=SPEED;
-                break;
-            case DOWN:
-                y+=SPEED;
-                break;
-            default:
-                break;
-        }
+        myTank.paint(g);
     }
 
     /** 处理键盘事件
@@ -116,16 +96,19 @@ public class TankFrame extends Frame {
             setTankDir();
         }
 
-        //设置坦克方向
+        /** 设置坦克方向:可能两个键一起摁到，故不用elseif **/
         void setTankDir(){
             if(boolLeft){
-                dir = Direction.LEFT;
-            } else if(boolUp){
-                dir = Direction.UP;
-            } else if(boolRight){
-                dir = Direction.RIGHT;
-            } else if(boolDown){
-                dir = Direction.DOWN;
+                myTank.setDir(Direction.LEFT);
+            }
+            if(boolUp){
+                myTank.setDir(Direction.UP);
+            }
+            if(boolRight){
+                myTank.setDir(Direction.RIGHT);
+            }
+            if(boolDown){
+                myTank.setDir(Direction.DOWN);
             }
         }
 
