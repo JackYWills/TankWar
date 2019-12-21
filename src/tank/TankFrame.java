@@ -98,17 +98,22 @@ public class TankFrame extends Frame {
 
         /** 设置坦克方向:可能两个键一起摁到，故不用elseif **/
         void setTankDir(){
-            if(boolLeft){
-                myTank.setDir(Direction.LEFT);
-            }
-            if(boolUp){
-                myTank.setDir(Direction.UP);
-            }
-            if(boolRight){
-                myTank.setDir(Direction.RIGHT);
-            }
-            if(boolDown){
-                myTank.setDir(Direction.DOWN);
+            if(!boolLeft && !boolUp && !boolRight && !boolDown){
+                myTank.setMoving(false);
+            }else{
+                myTank.setMoving(true);
+                if(boolLeft){
+                    myTank.setDir(Direction.LEFT);
+                }
+                if(boolUp){
+                    myTank.setDir(Direction.UP);
+                }
+                if(boolRight){
+                    myTank.setDir(Direction.RIGHT);
+                }
+                if(boolDown){
+                    myTank.setDir(Direction.DOWN);
+                }
             }
         }
 

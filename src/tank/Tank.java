@@ -17,6 +17,8 @@ public class Tank {
 
     private Direction dir = Direction.DOWN;
 
+    private boolean moving = false;
+
     public Tank(int x, int y, Direction dir) {
         this.x = x;
         this.y = y;
@@ -27,9 +29,20 @@ public class Tank {
         this.dir = dir;
     }
 
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
     /** 绘制tank自身：50*50的正方形 **/
     public void paint(Graphics g){
         g.fillRect(x,y,50,50);
+        move();
+    }
+
+    private void move() {
+        if(!moving){
+            return;
+        }
         switch (dir){
             case LEFT:
                 x-=SPEED;
