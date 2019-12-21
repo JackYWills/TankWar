@@ -11,3 +11,5 @@ out/production/tank/META-INF/tank.kotlin_module
 .idea/modules.xml
 .idea/misc.xml
 .idea/inspectionProfiles/Project_Default.xml
+out/production/tank/tank/TankFrame$2.class
+*.class

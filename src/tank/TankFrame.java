@@ -14,7 +14,8 @@ import java.awt.event.WindowEvent;
  **/
 public class TankFrame extends Frame {
 
-    int x = 200,y = 200;
+    private final int SPEED = 10;
+    Direction dir = Direction.DOWN;
 
     public TankFrame(){
         this.setVisible(true);
@@ -37,40 +38,59 @@ public class TankFrame extends Frame {
 
     }
 
-    // 重绘时（frame.repaint()）自动调用
+    /** 重绘时（frame.repaint()）自动调用 **/
     @Override
     public void paint(Graphics g) {
+        // tank's coordinate of the screen
+        int x = 200,y = 200;
         // 绘制50*50的正方形
         g.fillRect(x,y,50,50);
+        switch (dir){
+            case LEFT:
+                x-=SPEED;
+                break;
+            case RIGHT:
+                x+=SPEED;
+                break;
+            case UP:
+                y-=SPEED;
+                break;
+            case DOWN:
+                y+=SPEED;
+                break;
+            default:
+                break;
+        }
     }
 
-    // 处理键盘事件
-    // 内部类：只有自己用到的类无需暴露在外部
+    /** 处理键盘事件
+        内部类：只有自己用到的类无需暴露在外部 **/
     class MyKeyListener extends KeyAdapter {
-        boolean bL = false;
-        boolean bR = false;
-        boolean bU = false;
-        boolean bD = false;
+        boolean boolLeft = false;
+        boolean boolRight = false;
+        boolean boolUp = false;
+        boolean boolDown = false;
         @Override
         public void keyPressed(KeyEvent e) {
             int key = e.getKeyCode();
             switch (key){
                 //virtual Key
                 case KeyEvent.VK_LEFT:
-                    bL = true;
+                    boolLeft = true;
                     break;
                 case KeyEvent.VK_RIGHT:
-                    bR = true;
+                    boolRight = true;
                     break;
                 case KeyEvent.VK_UP:
-                    bU = true;
+                    boolUp = true;
                     break;
                 case KeyEvent.VK_DOWN:
-                    bD = true;
+                    boolDown = true;
                     break;
                 default:
                     break;
             }
+            setTankDir();
         }
 
         @Override
@@ -79,21 +99,36 @@ public class TankFrame extends Frame {
             switch (key){
                 //virtual Key
                 case KeyEvent.VK_LEFT:
-                    bL = false;
+                    boolLeft = false;
                     break;
                 case KeyEvent.VK_RIGHT:
-                    bR = false;
+                    boolRight = false;
                     break;
                 case KeyEvent.VK_UP:
-                    bU = false;
+                    boolUp = false;
                     break;
                 case KeyEvent.VK_DOWN:
-                    bD = false;
+                    boolDown = false;
                     break;
                 default:
                     break;
             }
+            setTankDir();
         }
+
+        //设置坦克方向
+        void setTankDir(){
+            if(boolLeft){
+                dir = Direction.LEFT;
+            } else if(boolUp){
+                dir = Direction.UP;
+            } else if(boolRight){
+                dir = Direction.RIGHT;
+            } else if(boolDown){
+                dir = Direction.DOWN;
+            }
+        }
+
     }
 
 }
