@@ -16,6 +16,8 @@ public class TankFrame extends Frame {
 
     Tank myTank = new Tank(200,200, Direction.DOWN);
 
+    Bullet bullet = new Bullet(195,205, Direction.DOWN);
+
     public TankFrame(){
         this.setVisible(true);
         this.setSize(800,600);
@@ -41,6 +43,7 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         myTank.paint(g);
+        bullet.paint(g);
     }
 
     /** 处理键盘事件
